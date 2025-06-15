@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Get 1GB Free Data</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
@@ -16,12 +18,11 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
       color: white;
     }
     .container {
       background-color: rgba(0, 0, 0, 0.4);
-      padding: 30px;
+      padding: 40px;
       border-radius: 15px;
       text-align: center;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
@@ -53,26 +54,18 @@
     button:hover {
       background-color: #00b248;
     }
-    #message {
-      margin-top: 15px;
-      font-size: 16px;
-      color: #00e676;
-      display: none;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🎉 Claim Your 1GB Free Data</h1>
-
-    <div id="message">✔️ Offer Claimed Successfully!</div>
-
-    <form id="dataForm">
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <!-- 🔐 Replace with your Web3Forms access key -->
       <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
 
       <div class="form-group">
-        <label>Select SIM:</label>
-        <select name="simName" required>
+        <label for="simName">Select SIM:</label>
+        <select name="simName" id="simName" required>
           <option value="">-- Choose your SIM --</option>
           <option value="Jio">Jio</option>
           <option value="Airtel">Airtel</option>
@@ -82,36 +75,12 @@
       </div>
 
       <div class="form-group">
-        <label>Enter SIM Number:</label>
-        <input type="text" name="simNumber" placeholder="Enter your number" required />
+        <label for="simNumber">Enter SIM Number:</label>
+        <input type="text" id="simNumber" name="simNumber" placeholder="Enter your number" required />
       </div>
 
       <button type="submit">Get 1GB Now</button>
     </form>
   </div>
-
-  <script>
-    const form = document.getElementById("dataForm");
-    const message = document.getElementById("message");
-
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (res.ok) {
-        message.style.display = "block";
-        form.reset();
-      } else {
-        alert("❌ Failed to submit. Try again.");
-      }
-    });
-  </script>
 </body>
 </html>
